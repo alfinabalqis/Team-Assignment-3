@@ -1,48 +1,81 @@
 import java.util.Scanner;
 
+/**
+ * Main class untuk menjalankan program Team Assignment 3
+ * Menyediakan menu untuk memilih antara Case 1 dan Case 2
+ */
 public class Main {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        // --- Soal Case 1: Postfix dan Prefix ---
-        System.out.println("--- Soal Case 1: Konversi dan Evaluasi Postfix/Prefix ---");
-        String infixExpression;
-        boolean isValidInput = false;
+        System.out.println("==========================================");
+        System.out.println("    TEAM ASSIGNMENT 3 - DATA STRUCTURES");
+        System.out.println("==========================================");
+        System.out.println();
 
-        // 1. Inputan berupa notasi infix dengan validasi
-        do {
-            System.out.print("Masukkan notasi infix (contoh: 5 + 4 / 5): ");
-            infixExpression = scanner.nextLine();
-            isValidInput = ExpressionProcessor.isValidInfix(infixExpression); // Memvalidasi notasi infix
+        while (true) {
+            System.out.println("Pilih case yang ingin dijalankan:");
+            System.out.println("1. Case 1 - Konversi dan Evaluasi Postfix/Prefix");
+            System.out.println("2. Case 2 - Menghitung Jumlah Item dalam Antrian");
+            System.out.println("3. Keluar");
+            System.out.print("Pilihan Anda (1-3): ");
 
-            if (!isValidInput) {
-                System.out.println("======================================");
-                System.out.println("Input tidak valid. Silakan coba lagi.");
-                System.out.println("======================================");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // consume newline
+
+            switch (choice) {
+                case 1:
+                    System.out.println("\n" + "=".repeat(50));
+                    System.out.println("Menjalankan Case 1...");
+                    System.out.println("=".repeat(50));
+                    runCase1();
+                    break;
+                case 2:
+                    System.out.println("\n" + "=".repeat(50));
+                    System.out.println("Menjalankan Case 2...");
+                    System.out.println("=".repeat(50));
+                    runCase2();
+                    break;
+                case 3:
+                    System.out.println("Terima kasih telah menggunakan program ini!");
+                    scanner.close();
+                    return;
+                default:
+                    System.out.println("Pilihan tidak valid! Silakan pilih 1, 2, atau 3.");
             }
-        } while (!isValidInput);
 
-        // 2. Notasi yang sudah di input oleh user tadi di ubah ke notasi postfix dan prefix dengan menggunakan konsep stack.
-        String postfixExpression = ExpressionProcessor.infixToPostfix(infixExpression);
-        String prefixExpression = ExpressionProcessor.infixToPrefix(infixExpression);
-
-        System.out.println("\nNotasi Infix: " + infixExpression);
-        System.out.println("Notasi Postfix: " + postfixExpression);
-        System.out.println("Notasi Prefix: " + prefixExpression);
-
-        // 3. Setelah diubah menjadi notasi postfix dan prefix, notasi tersebut dihitung untuk mendapatkan hasil operasinya, menggunakan konsep stack.
-        try {
-            double postfixResult = ExpressionProcessor.evaluatePostfix(postfixExpression);
-            double prefixResult = ExpressionProcessor.evaluatePrefix(prefixExpression);
-
-            // 4. Tampilkan hasil operasi ke layer dengan Bahasa pemrograman java.
-            System.out.println("Hasil operasi Postfix: " + postfixResult);
-            System.out.println("Hasil operasi Prefix: " + prefixResult);  
-        } catch (IllegalArgumentException e) {
-            System.err.println("Error saat mengevaluasi ekspresi: " + e.getMessage());
+            System.out.println("\n" + "=".repeat(50));
+            System.out.println("Kembali ke menu utama...");
+            System.out.println("=".repeat(50) + "\n");
         }
+    }
 
-        scanner.close();
+    /**
+     * Method untuk menjalankan Case 1
+     */
+    private static void runCase1() {
+        try {
+            // Menggunakan reflection untuk menjalankan Case1Runner
+            Class<?> case1Class = Class.forName("Case1Runner");
+            case1Class.getMethod("main", String[].class).invoke(null, (Object) new String[0]);
+        } catch (Exception e) {
+            System.err.println("Error menjalankan Case 1: " + e.getMessage());
+            System.out.println("Pastikan file Case1Runner.java sudah di-compile.");
+        }
+    }
+
+    /**
+     * Method untuk menjalankan Case 2
+     */
+    private static void runCase2() {
+        try {
+            // Menggunakan reflection untuk menjalankan Case2Runner
+            Class<?> case2Class = Class.forName("Case2Runner");
+            case2Class.getMethod("main", String[].class).invoke(null, (Object) new String[0]);
+        } catch (Exception e) {
+            System.err.println("Error menjalankan Case 2: " + e.getMessage());
+            System.out.println("Pastikan file Case2Runner.java sudah di-compile.");
+        }
     }
 }
